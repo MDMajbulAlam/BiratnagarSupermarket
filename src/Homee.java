@@ -234,6 +234,11 @@ public class Homee extends javax.swing.JFrame {
                 BillingComponentShown(evt);
             }
         });
+        Billing.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BillingActionPerformed(evt);
+            }
+        });
         jPanel1.add(Billing, new org.netbeans.lib.awtextra.AbsoluteConstraints(1111, 60, 128, -1));
 
         Logout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Logout.png"))); // NOI18N
@@ -492,6 +497,10 @@ public class Homee extends javax.swing.JFrame {
         // TODO add your handling code here:
         new DeleteProduct().setVisible(true);
     }//GEN-LAST:event_DeleteProductActionPerformed
+
+    private void BillingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BillingActionPerformed
+       new Billing().setVisible(true);
+    }//GEN-LAST:event_BillingActionPerformed
 
     /**
      * @param args the command line arguments

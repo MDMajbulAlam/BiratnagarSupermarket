@@ -1,3 +1,16 @@
+import java.sql.*;
+import Project.ConnectionProvider;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import javax.swing.JOptionPane;
+import java.util.Date;
+import javax.swing.table.DefaultTableModel;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -9,12 +22,19 @@
  * @author Majbul Rahman
  */
 public class Billing extends javax.swing.JFrame {
-
+public int finalTotal=0;
     /**
      * Creates new form Billing
      */
     public Billing() {
         initComponents();
+        SimpleDateFormat dFormat=new SimpleDateFormat("dd-MM-yyyy");
+        Date date=new Date();
+        jLabel4.setText(dFormat.format(date));
+        
+        DateTimeFormatter dtf=DateTimeFormatter.ofPattern("HH:mm:ss");
+        LocalDateTime now=LocalDateTime.now();
+        jLabel5.setText(dtf.format(now));
     }
 
     /**
@@ -29,10 +49,49 @@ public class Billing extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         Productbilling = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
+        Name = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        Contact = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        Email = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        Address = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        jLabel11 = new javax.swing.JLabel();
+        Product = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        Productname = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
+        Rate = new javax.swing.JTextField();
+        jLabel15 = new javax.swing.JLabel();
+        Quantity = new javax.swing.JTextField();
+        jLabel16 = new javax.swing.JLabel();
+        Description = new javax.swing.JTextField();
+        Add = new javax.swing.JButton();
+        jSeparator2 = new javax.swing.JSeparator();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        Returnamount = new javax.swing.JTextField();
+        Paidamount = new javax.swing.JTextField();
+        Total = new javax.swing.JTextField();
+        save = new javax.swing.JButton();
+        reset = new javax.swing.JButton();
+        close = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setLocation(new java.awt.Point(380, 260));
+        setLocation(new java.awt.Point(100, 150));
         setUndecorated(true);
         addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentShown(java.awt.event.ComponentEvent evt) {
@@ -45,48 +104,441 @@ public class Billing extends javax.swing.JFrame {
 
         Productbilling.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         Productbilling.setForeground(new java.awt.Color(204, 0, 0));
-        Productbilling.setText("RODUCTS BILLING");
+        Productbilling.setText("BILLING PRODUCTS");
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/billing.png"))); // NOI18N
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel2.setText("Date :");
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel3.setText("Time:");
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel4.setText("jLabel4");
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel5.setText("jLabel5");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(334, 334, 334)
+                .addGap(398, 398, 398)
                 .addComponent(jLabel1)
-                .addGap(40, 40, 40)
+                .addGap(18, 18, 18)
                 .addComponent(Productbilling, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(278, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 248, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel2))
+                .addGap(26, 26, 26)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5))
+                .addGap(71, 71, 71))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Productbilling)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addGap(26, 26, 26))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jLabel1)
                 .addGap(0, 2, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(Productbilling)
-                .addGap(41, 41, 41))
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1170, 130));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1370, 130));
 
         jPanel2.setBackground(new java.awt.Color(0, 102, 102));
+
+        Name.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        Name.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                NameFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                NameFocusLost(evt);
+            }
+        });
+        Name.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                NameActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("Name");
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("Contact No.");
+
+        Contact.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        Contact.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                ContactFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                ContactFocusLost(evt);
+            }
+        });
+        Contact.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ContactActionPerformed(evt);
+            }
+        });
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("Email ID");
+
+        Email.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        Email.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                EmailFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                EmailFocusLost(evt);
+            }
+        });
+        Email.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EmailActionPerformed(evt);
+            }
+        });
+
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setText("Address");
+
+        Address.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        Address.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                AddressFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                AddressFocusLost(evt);
+            }
+        });
+        Address.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AddressActionPerformed(evt);
+            }
+        });
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel10.setText("Buyers Details :");
+
+        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel11.setText("Products Details :");
+
+        Product.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        Product.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                ProductFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                ProductFocusLost(evt);
+            }
+        });
+        Product.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ProductActionPerformed(evt);
+            }
+        });
+
+        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel12.setText("Product ID");
+
+        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel13.setText("Product Name");
+
+        Productname.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        Productname.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                ProductnameFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                ProductnameFocusLost(evt);
+            }
+        });
+        Productname.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ProductnameActionPerformed(evt);
+            }
+        });
+
+        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel14.setText("Rate");
+
+        Rate.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        Rate.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                RateFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                RateFocusLost(evt);
+            }
+        });
+        Rate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RateActionPerformed(evt);
+            }
+        });
+
+        jLabel15.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel15.setText("Quantity");
+
+        Quantity.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+
+        jLabel16.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel16.setText("Description");
+
+        Description.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        Description.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                DescriptionFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                DescriptionFocusLost(evt);
+            }
+        });
+        Description.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DescriptionActionPerformed(evt);
+            }
+        });
+
+        Add.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
+        Add.setForeground(new java.awt.Color(255, 0, 0));
+        Add.setIcon(new javax.swing.ImageIcon(getClass().getResource("/addd.png"))); // NOI18N
+        Add.setText("ADD");
+        Add.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AddActionPerformed(evt);
+            }
+        });
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Name", "Description", "Rate", "Quantity", "Total"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
+        jLabel17.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel17.setText("Calculation Details :");
+
+        jLabel18.setFont(new java.awt.Font("Footlight MT Light", 1, 18)); // NOI18N
+        jLabel18.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel18.setText("Total :");
+
+        jLabel19.setFont(new java.awt.Font("Footlight MT Light", 1, 18)); // NOI18N
+        jLabel19.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel19.setText("Paid Amount :");
+
+        jLabel20.setFont(new java.awt.Font("Footlight MT Light", 1, 18)); // NOI18N
+        jLabel20.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel20.setText("Return Amount :");
+
+        Returnamount.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+
+        Paidamount.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        Paidamount.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PaidamountActionPerformed(evt);
+            }
+        });
+
+        Total.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+
+        save.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        save.setIcon(new javax.swing.ImageIcon(getClass().getResource("/save2.png"))); // NOI18N
+        save.setText(" SAVE");
+        save.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveActionPerformed(evt);
+            }
+        });
+
+        reset.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        reset.setIcon(new javax.swing.ImageIcon(getClass().getResource("/reset1.png"))); // NOI18N
+        reset.setText("RESET");
+        reset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                resetActionPerformed(evt);
+            }
+        });
+
+        close.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        close.setIcon(new javax.swing.ImageIcon(getClass().getResource("/close2.png"))); // NOI18N
+        close.setText("CLOSE");
+        close.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                closeActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1170, Short.MAX_VALUE)
+            .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 804, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel17))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(30, 30, 30)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel20)
+                                    .addComponent(jLabel19)
+                                    .addComponent(jLabel18))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(Total, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(Returnamount, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(Paidamount, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(53, 53, 53)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(reset, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(save, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(close, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(Product, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel13)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(Productname, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel14)
+                                .addGap(29, 29, 29)
+                                .addComponent(Rate, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel15)
+                                .addGap(18, 18, 18)
+                                .addComponent(Quantity, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel16)
+                                .addGap(18, 18, 18)
+                                .addComponent(Description))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jLabel6)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(Name, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLabel7)
+                                        .addGap(14, 14, 14)
+                                        .addComponent(Contact, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLabel8)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(Email, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLabel9)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(Address, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabel11)
+                                    .addComponent(jLabel10))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(8, 8, 8))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(Add)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 430, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(4, 4, 4)
+                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Name, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Contact, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Email, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Address)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Productname, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(Product, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel14)
+                    .addComponent(Rate, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel15, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Description)
+                    .addComponent(Quantity, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel16, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(Add)
+                .addGap(18, 18, 18)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(save, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(Total))
+                        .addGap(34, 34, 34)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(reset, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(Paidamount)
+                            .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(40, 40, 40)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(close, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(Returnamount)
+                            .addComponent(jLabel20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(271, 271, 271))
         );
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 1170, 430));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 1370, 620));
 
         pack();
         setLocationRelativeTo(null);
@@ -95,6 +547,266 @@ public class Billing extends javax.swing.JFrame {
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
         // TODO add your handling code here:
     }//GEN-LAST:event_formComponentShown
+
+    private void NameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_NameFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_NameFocusGained
+
+    private void NameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_NameFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_NameFocusLost
+
+    private void NameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NameActionPerformed
+        // TODO add your handling code here:
+        String name=Name.getText();
+        try
+        {
+            Connection con=ConnectionProvider.getCon();
+            Statement st=con.createStatement();
+            ResultSet rs=st.executeQuery("select * from buyer where name like '"+name+"%'");
+            if(rs.next())
+            {
+                Name.setText(rs.getString(1));
+                Contact.setText(rs.getString(2));
+                Email.setText(rs.getString(3));
+                Address.setText(rs.getString(4));  
+            }
+            else
+            {
+                Contact.setText("");
+                Email.setText("");
+                Address.setText(""); 
+            }
+        }
+        catch(Exception e)
+        {
+        
+        }
+            
+    }//GEN-LAST:event_NameActionPerformed
+
+    private void ContactFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_ContactFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ContactFocusGained
+
+    private void ContactFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_ContactFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ContactFocusLost
+
+    private void ContactActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ContactActionPerformed
+        // TODO add your handling code here:
+        String ContactNo=Contact.getText();
+        try
+        {
+            Connection con=ConnectionProvider.getCon();
+            Statement st=con.createStatement();
+            ResultSet rs=st.executeQuery("select * from buyer where ContactNo like '"+ContactNo+"%'");
+            if(rs.next())
+            {
+                Name.setText(rs.getString(1));
+                Contact.setText(rs.getString(2));
+                Email.setText(rs.getString(3));
+                Address.setText(rs.getString(4));  
+            }
+            else
+            {
+                Name.setText("");
+                Email.setText("");
+                Address.setText(""); 
+            }
+        }
+        catch(Exception e)
+        {
+        
+        }
+        
+    }//GEN-LAST:event_ContactActionPerformed
+
+    private void EmailFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_EmailFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_EmailFocusGained
+
+    private void EmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_EmailFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_EmailFocusLost
+
+    private void EmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EmailActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_EmailActionPerformed
+
+    private void AddressFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_AddressFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_AddressFocusGained
+
+    private void AddressFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_AddressFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_AddressFocusLost
+
+    private void AddressActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddressActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_AddressActionPerformed
+
+    private void ProductFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_ProductFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ProductFocusGained
+
+    private void ProductFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_ProductFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ProductFocusLost
+
+    private void ProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProductActionPerformed
+        // TODO add your handling code here:
+        String ProductID=Product.getText();
+        try
+        {
+            Connection con=ConnectionProvider.getCon();
+            Statement st=con.createStatement();
+            ResultSet rs=st.executeQuery("select * from product where ProductID like '"+ProductID+"%'");
+            if(rs.next())
+            {
+                
+                Productname.setText(rs.getString(2));
+                Rate.setText(rs.getString(3));
+                Quantity.setText("1"); 
+                Description.setText(rs.getString(4)); 
+            }
+            else
+            {
+                Productname.setText("");
+                Rate.setText("");
+                Quantity.setText(""); 
+                Description.setText(""); 
+            }
+        }
+        catch(Exception e)
+        {
+        
+        }
+    }//GEN-LAST:event_ProductActionPerformed
+
+    private void ProductnameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_ProductnameFocusGained
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_ProductnameFocusGained
+
+    private void ProductnameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_ProductnameFocusLost
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_ProductnameFocusLost
+
+    private void ProductnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProductnameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ProductnameActionPerformed
+
+    private void RateFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_RateFocusGained
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_RateFocusGained
+
+    private void RateFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_RateFocusLost
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_RateFocusLost
+
+    private void RateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RateActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_RateActionPerformed
+
+    private void DescriptionFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_DescriptionFocusGained
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_DescriptionFocusGained
+
+    private void DescriptionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_DescriptionFocusLost
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_DescriptionFocusLost
+
+    private void DescriptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DescriptionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_DescriptionActionPerformed
+
+    private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
+        // TODO add your handling code here:
+        String name=Name.getText();
+        String ContactNo=Contact.getText();
+        String email=Email.getText();
+        String address=Address.getText();
+        String path="E:\\";
+        com.itextpdf.text.Document doc=new com.itextpdf.text.Document();
+        try
+        {
+            PdfWriter.getInstance(doc, new FileOutputStream(path+""+name+" "+jLabel4.getText()+".pdf"));
+            doc.open();
+            Paragraph paragraph1=new Paragraph("                                                BIRATNAGAR SUPERMARKET\n                                                Contact Number:+977-9812360786\n\n");
+            doc.add(paragraph1);
+            Paragraph paragraph2=new Paragraph("Date & Time:"+jLabel4.getText()+" "+jLabel5.getText()+"\nBuyerDetails:\nName:" +name+"\nContact No:" +ContactNo+"\nEmail:" +email+"\nAddress:" +address+"\n\n");
+            doc.add(paragraph2);
+            PdfPTable tbl= new PdfPTable(5);
+            tbl.addCell("Name");
+            tbl.addCell("Description");
+            tbl.addCell("Rate");
+            tbl.addCell("Quantity");
+            tbl.addCell("Sub Total");
+               for(int i=0;i<jTable1.getRowCount();i++)
+               {
+                    String n=jTable1.getValueAt(i, 0).toString();
+                    String d=jTable1.getValueAt(i, 1).toString();
+                    String r=jTable1.getValueAt(i, 2).toString();
+                    String q=jTable1.getValueAt(i, 3).toString();
+                    String s=jTable1.getValueAt(i, 4).toString();
+                    tbl.addCell(n);
+                    tbl.addCell(d);
+                    tbl.addCell(r);
+                    tbl.addCell(q);
+                    tbl.addCell(s);
+               }
+               doc.add(tbl);
+               Paragraph paragraph3=new Paragraph("\nTotal=" +Total.getText()+"\nPaid Amount=" +Paidamount.getText()+"\nReturn Amount=" +Returnamount.getText()+"\n\n                                           Thanks you for Visiting !Please Come Again");
+               doc.add(paragraph3);
+               JOptionPane.showMessageDialog(null, "Bill Generated");
+               setVisible(true);
+               new Billing().setVisible(true);
+        }
+            catch(Exception e)
+        {
+            JOptionPane.showMessageDialog(null, e);
+        }
+        doc.close();
+    }//GEN-LAST:event_saveActionPerformed
+
+    private void resetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetActionPerformed
+        // TODO add your handling code here:
+        setVisible(false);
+        new Billing().setVisible(true);
+    }//GEN-LAST:event_resetActionPerformed
+
+    private void closeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeActionPerformed
+        // TODO add your handling code here:
+        setVisible(false);
+    }//GEN-LAST:event_closeActionPerformed
+
+    private void AddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddActionPerformed
+        // TODO add your handling code here:
+        int price=Integer.parseInt(Rate.getText());
+        int quantity=Integer.parseInt(Quantity.getText());
+        int total=price*quantity;
+        DefaultTableModel model=(DefaultTableModel)jTable1.getModel();
+        model.addRow(new Object[]{Productname.getText(),Description.getText(),price,quantity,total});
+        finalTotal=finalTotal+total;
+        String finalTotall=String.valueOf(finalTotal);
+        Total.setText(finalTotall);
+    }//GEN-LAST:event_AddActionPerformed
+
+    private void PaidamountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PaidamountActionPerformed
+        // TODO add your handling code here:
+        String paidAmount=Paidamount.getText();
+        int z=Integer.parseInt(paidAmount);
+        finalTotal=z-finalTotal;
+        String finalTotall=String.valueOf(finalTotal);
+        Returnamount.setText(finalTotall);
+        Returnamount.setEditable(false);
+    }//GEN-LAST:event_PaidamountActionPerformed
 
     /**
      * @param args the command line arguments
@@ -132,9 +844,48 @@ public class Billing extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Add;
+    private javax.swing.JTextField Address;
+    private javax.swing.JTextField Contact;
+    private javax.swing.JTextField Description;
+    private javax.swing.JTextField Email;
+    private javax.swing.JTextField Name;
+    private javax.swing.JTextField Paidamount;
+    private javax.swing.JTextField Product;
     private javax.swing.JLabel Productbilling;
+    private javax.swing.JTextField Productname;
+    private javax.swing.JTextField Quantity;
+    private javax.swing.JTextField Rate;
+    private javax.swing.JTextField Returnamount;
+    private javax.swing.JTextField Total;
+    private javax.swing.JButton close;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JButton reset;
+    private javax.swing.JButton save;
     // End of variables declaration//GEN-END:variables
 }
