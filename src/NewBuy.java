@@ -53,7 +53,7 @@ public class NewBuy extends javax.swing.JFrame {
         jButton2.setText("jButton2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setLocation(new java.awt.Point(380, 260));
+        setLocation(new java.awt.Point(680, 160));
         setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(51, 0, 51));
@@ -62,7 +62,7 @@ public class NewBuy extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(204, 0, 0));
         jLabel1.setText("NEW BUYER");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(242, 81, 234, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 50, 234, -1));
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/New Buyer.png"))); // NOI18N
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -70,7 +70,7 @@ public class NewBuy extends javax.swing.JFrame {
                 jButton3ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 126, 125));
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 5, 126, 120));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
